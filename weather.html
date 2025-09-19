@@ -1,0 +1,22 @@
+{% extends "weather_app/base.html" %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Get Weather</button>
+</form>
+
+{% if weather %}
+    <h2>{{ weather.city }}</h2>
+    <p>🌡️ Temperature: {{ weather.temperature }}°C</p>
+    <p>💧 Humidity: {{ weather.humidity }}%</p>
+    <p>💨 Wind Speed: {{ weather.wind }} m/s</p>
+{% endif %}
+
+<h3>Recent Searches</h3>
+<ul>
+    {% for item in history %}
+        <li>{{ item.city }} - {{ item.temperature }}°C</li>
+    {% endfor %}
+</ul>
+{% endblock %}
